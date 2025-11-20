@@ -1,0 +1,19 @@
+{
+  "verdict": "True",
+  "score": 1.0,
+  "evidence": [
+    "Yoga: India\u2019s Gift to the World"
+  ],
+  "reason": "The retrieved fact directly states that Yoga is India's gift to the world, implying its origin in India."
+}
+{
+  "verdict": "False",
+  "score": 1.0,
+  "evidence": [
+    "Union Health Minister Shri J P Nadda delivers Inaugural Address at the National One Health Mission Assembly 2025 at Bharat Mandapam"
+  ],
+  "reason": "The retrieved facts state that the Union Health Minister delivered the Inaugural Address at the National One Health Mission Assembly 2025. This directly contradicts the claim that the assembly was cancelled."
+}
+{
+  "verdict": "Unverifiable"
+}
