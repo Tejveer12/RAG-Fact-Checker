@@ -47,7 +47,7 @@ class TrustedFactBase:
             self.collection.flush()
             print(f"Inserted {len(fact_list)} facts into Milvus Lite.")
 
-    async def search(self, query_text, k=3):
+    async def search(self, query_text, k=5):
         async with self._lock:
             query_emb = self.embedder.encode([query_text]).tolist()
             self.collection.load()

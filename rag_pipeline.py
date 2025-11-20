@@ -22,12 +22,10 @@ class RAGFactChecker:
             facts = await self.retriever.search(claim)
 
             verdict = await self.scorer.classify(claim, facts)
-            print(verdict)
             verdict = extract_claim_json(verdict)
+            print(verdict)
 
-            print("Raw verdict:", verdict)
             score = float(verdict["score"])
-            print("Score:", score)
 
             if score < SCORING_THRESHOLD:
                 return {"verdict": "Unverifiable"}

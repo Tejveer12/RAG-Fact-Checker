@@ -22,20 +22,21 @@ class VerdictClassifier:
         system_prompt = f"""
 You are an expert fact-checking AI.
 
-Compare the user's claim against the retrieved verified facts.
+Compare the user's claim against the retrieved verified facts (Ground Truth).
 
 Return STRICT JSON ONLY in this format:
 {{
-  "verdict": "True | False",
+  "verdict": "True | False | Unverifiable",
   "score": 0.0-1.0,
   "evidence":  ["Retrieved statement 1", "Retrieved statement 2"],
   "reason": "..."
 }}
 
 Rules:
-- "True" → The claim directly matches or is strongly supported by the facts.
-- "False" → The facts directly contradict the claim.
-- Score should represent confidence.
+"True" → The claim is directly supported or strongly corroborated by the facts.
+"False" → The claim is directly contradicted by the facts.
+"Unverifiable" → There is insufficient or no evidence or no relation in the facts to determine the claim’s truth or false.
+Score → Represents the confidence in the verdict of True or False or Unverifiable.
 """
 
         facts_joined = "\n- ".join(
@@ -93,20 +94,21 @@ Retrieved Facts:
             )
 
             system_prompt_text = """You are an expert fact-checking AI.
-    Compare the claim with retrieved facts.
+    Compare the claim with retrieved facts (Ground Truth).
     
     Return JSON ONLY in this format:
 {{
-  "verdict": "True | False",
+  "verdict": "True | False| Unverifiable",
   "score": 0.0-1.0,
   "evidence":  ["Retrieved statement 1", "Retrieved statement 2"],
   "reason": "..."
 }}
 
 Rules:
-- "True" → The claim directly matches or is strongly supported by the facts.
-- "False" → The facts directly contradict the claim.
-- Score should represent confidence if no retrieved facts found then score must be low.
+"True" → The claim is directly supported or strongly corroborated by the facts.
+"False" → The claim is directly contradicted by the facts.
+"Unverifiable" → There is insufficient or no evidence or no relation in the facts to determine the claim’s truth or false.
+Score → Represents the confidence in the verdict of True or False or Unverifiable.
 """
 
             prompt = ChatPromptTemplate.from_messages([
