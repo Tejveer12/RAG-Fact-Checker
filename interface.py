@@ -20,13 +20,14 @@ if st.button("Check Claim"):
                 response = requests.post(API_URL, json={"text": claim_input})
                 if response.status_code == 200:
                     result = response.json()
+                    print(result)
 
                     # Check if 'verdict' is a JSON string itself
                     try:
-                        inner = json.loads(result.get("verdict", "{}"))
-                        verdict = inner.get("verdict", "Unknown")
-                        score = inner.get("score", 0.0)
-                        reason = inner.get("reason", "No reason provided.")
+                        verdict = result.get("verdict", "Unknown")
+                        score = result.get("score", 0.0)
+                        evidence = result.get("evidence", [])
+                        reason = result.get("reason", "No reason provided.")
                     except json.JSONDecodeError:
                         # Fallback if it's already proper
                         verdict = result.get("verdict", "Unknown")
@@ -34,16 +35,20 @@ if st.button("Check Claim"):
                         reason = result.get("reason", "No reason provided.")
 
 
-                    if verdict.lower() == "true":
-                        st.success(f"Verdict : {verdict}")
-                    elif verdict.lower() == "false":
-                        st.error(f"Verdict : {verdict}")
+                    if verdict.lower() != "unverifiable":
+                        if verdict == "true":
+                            st.success(f"Verdict : {verdict}")
+                        elif verdict.lower() == "false":
+                            st.error(f"Verdict : {verdict}")
+
+                        st.info(f"Score : {score:.2f}")
+
+                        st.info(f"Evidence : {evidence}")
+
+                        st.info(f"Reason: {reason}")
                     else:
                         st.info(f"Verdict : {verdict}")
 
-                    st.info(f"Score : {score:.2f}")
-
-                    st.info(f"Reason: {reason}")
 
                 else:
                     st.error(f"Error: {response.status_code}")

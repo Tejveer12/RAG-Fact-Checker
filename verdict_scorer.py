@@ -26,15 +26,15 @@ Compare the user's claim against the retrieved verified facts.
 
 Return STRICT JSON ONLY in this format:
 {{
-  "verdict": "True | False | Unverifiable",
+  "verdict": "True | False",
   "score": 0.0-1.0,
+  "evidence":  ["Retrieved statement 1", "Retrieved statement 2"],
   "reason": "..."
 }}
 
 Rules:
 - "True" → The claim directly matches or is strongly supported by the facts.
 - "False" → The facts directly contradict the claim.
-- "Unverifiable" → No reliable match in the retrieved facts.
 - Score should represent confidence.
 """
 
@@ -96,11 +96,18 @@ Retrieved Facts:
     Compare the claim with retrieved facts.
     
     Return JSON ONLY in this format:
-    {{
-      "verdict": "True | False | Unverifiable",
-      "score": 0.0-1.0,
-      "reason": "..."
-    }}"""
+{{
+  "verdict": "True | False",
+  "score": 0.0-1.0,
+  "evidence":  ["Retrieved statement 1", "Retrieved statement 2"],
+  "reason": "..."
+}}
+
+Rules:
+- "True" → The claim directly matches or is strongly supported by the facts.
+- "False" → The facts directly contradict the claim.
+- Score should represent confidence if no retrieved facts found then score must be low.
+"""
 
             prompt = ChatPromptTemplate.from_messages([
                 ("system", system_prompt_text),

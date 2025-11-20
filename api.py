@@ -13,6 +13,6 @@ class ClaimRequest(BaseModel):
 async def check_claim(req: ClaimRequest):
     try:
         verdict = await checker.check(req.text)
-        return {"verdict": verdict}
+        return verdict
     except Exception as e:
         return {"error": str(e)}
