@@ -20,21 +20,21 @@ A **fact-checking web app** that verifies claims against a trusted knowledge bas
 1. **Clone the repository:**
 
 ```bash
-    git clone https://github.com/Tejveer12/RAG-Fact-Checker.git
-    cd RAG-Fact-Checker
+git clone https://github.com/Tejveer12/RAG-Fact-Checker.git
+cd RAG-Fact-Checker
 ```
 
 2. **Create and activate a virtual environment:**
 
 ```bash
-    python3 -m venv .venv
-    source .venv/bin/activate  # Linux/Mac
-    .venv\Scripts\activate     # Windows
+python3 -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+.venv\Scripts\activate     # Windows
 ```
 3. **Install dependencies:**
 
 ```bash
-    pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Vector Database Setup
@@ -42,7 +42,7 @@ A **fact-checking web app** that verifies claims against a trusted knowledge bas
 Before running the app, initialize the Milvus Lite database with trusted facts:
 
 ```bash
-  python setup_db.py
+python setup_db.py
 ```
 
 This script will:
@@ -55,7 +55,7 @@ This script will:
 Now, Create a `.env` file add a Google Gemini API Key like below
 
 ```bash
-  GOOGLE_API_KEY=<YOUR_API_KEY>
+GOOGLE_API_KEY=<YOUR_API_KEY>
 ```
 
 Or 
@@ -71,13 +71,13 @@ LOCAL_MODEL="Qwen/Qwen3-4B-Instruct-2507"
 
 Start the backend server (FastAPI):
 ```bash
-  uvicorn api:app --host 0.0.0.0 --port 8000
+uvicorn api:app --host 0.0.0.0 --port 8000
 ```
 
 Run the Streamlit frontend:
 
 ```bash
-  streamlit run interface.py
+streamlit run interface.py
 ```
 
 
